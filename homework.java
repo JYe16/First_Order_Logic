@@ -1,3 +1,11 @@
+/*
+*
+*   CSCI-561: HW3
+*   Written by: Jackie Ye
+*   To compile: javac homework.java
+*
+*/
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -55,6 +63,7 @@ public class homework {
                 //generate the name list first
                 List<name> nameList = generateNameList(fol, kb);
                 fol unifiedFOL = getUnifiedFOL(kb, fol);
+                //if there is only 1 sentence in the kb
                 if (kb.list.size() == 1) {
                     if (hasVariable(kb.list.get(0))) {
                         kb = replaceDownOnly(kb, nameList);
@@ -67,7 +76,9 @@ public class homework {
                     kb = replaceName(nameList, kb);
                 }
                 kb = resolveKB(kb, fol);
+                //if there is nothing in the list
                 if (kb.list.isEmpty()) {
+                    //asking complete, logic is satisfied
                     result.status = "TRUE";
                     result.nameList = nameList;
                     return result;
@@ -131,6 +142,7 @@ public class homework {
         return result;
     }
 
+    //This is for checking if a sentence has a variable or not
     static boolean hasVariable (fol fol) {
         for (String var: fol.var) {
             if (checkVariable(var)) {
